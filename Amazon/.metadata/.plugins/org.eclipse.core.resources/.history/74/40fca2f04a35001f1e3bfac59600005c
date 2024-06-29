@@ -1,0 +1,83 @@
+package ProjectA.ProjectA;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.AfterSuite;
+
+public class TestAnnotation 
+{ 
+	private static WebDriver driver=null;
+  @Test
+  public void f() throws InterruptedException
+  {
+	  WebDriver driver=new ChromeDriver();
+		driver.get("https://www.amazon.in/");
+		System.out.print(driver.getTitle());
+		System.out.print(driver.getCurrentUrl());
+		driver.manage().window().minimize();
+		driver.manage().window().maximize();
+	  driver.findElement(By.id("twotabsearchtextbox")).sendKeys("Mobile");
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//span[normalize-space()='under 20000']")).click();
+		driver.findElement(By.id("a-autoid-1-announce")).click();
+		driver.findElement(By.id("nav-cart-count")).click();
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//input[@name='proceedToRetailCheckout']")).click();
+		Thread.sleep(5000);
+		driver.navigate().back();
+		Thread.sleep(5000);
+		driver.navigate().back();
+		driver.findElement(By.id("twotabsearchtextbox")).clear();
+		driver.findElement(By.id("twotabsearchtextbox")).sendKeys("Coffee Mug");
+		driver.findElement(By.id("nav-search-submit-button")).click();
+		driver.findElement(By.id("a-autoid-2-announce")).click();
+		
+  }
+  @BeforeMethod
+  public void beforeMethod() 
+  {
+	  System.out.println("Amazon Project Selenium Fuctionality Testing");
+  }
+
+  @AfterMethod
+  public void afterMethod() 
+  {
+	  System.out.println("End of the test Exicution");
+//	  driver.close();
+//	  driver.quit();
+  }
+
+  @BeforeClass
+  public void beforeClass() {
+  }
+
+  @AfterClass
+  public void afterClass() {
+  }
+
+  @BeforeTest
+  public void beforeTest() {
+  }
+
+  @AfterTest
+  public void afterTest() {
+  }
+
+  @BeforeSuite
+  public void beforeSuite() {
+  }
+
+  @AfterSuite
+  public void afterSuite() {
+  }
+
+}

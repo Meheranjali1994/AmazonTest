@@ -1,0 +1,63 @@
+package ProjectA.ProjectA;
+
+import java.io.IOException;
+import java.io.ObjectInputFilter.Status;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+
+public class ExtentReport 
+{
+
+	private static WebDriver driver = null;
+
+	public static void main(String[] args) throws IOException, InterruptedException {
+		// TODO Auto-generated method stub
+
+		 ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter("extent.html");
+		    
+	        // create ExtentReports and attach reporter(s)
+	        ExtentReports extent = new ExtentReports();
+	        extent.attachReporter(htmlReporter);
+
+	        // creates a toggle for the given test, adds all log events under it    
+	        ExtentTest test = extent.createTest("Amazon search Test1", "This is a Test to validate Amazon search Functionality");
+	        
+	        String path = System.getProperty("user.dir")+"\\reports\\AmazonExtent.html";
+	        
+	       // System.setProperty("weddriver.gecko.driver", path+"\\reports\\\\index.html\");
+			
+	       // test.log(Status.ALLOWED, "Starting Test Case");
+			
+	        //test.log(Status., path);
+	        driver = new FirefoxDriver(); //create an object
+			
+			driver.get("https://www.google.com/");
+			test.pass("Navigated to google.com");
+			
+			driver.findElement(By.id("twotabsearchtextbox")).sendKeys("iphone");
+			test.pass("iphone product searched successfully");
+			
+			driver.findElement(By.id("nav-search-submit-button")).click();
+			test.pass("Clicked on search button successfully");
+			
+			driver.findElement(By.id("a-autoid-1-announce")).click();
+			test.pass("Added to cart successfully");
+			
+			driver.close();
+	        test.pass("close the browser");
+	        
+	        test.pass("Test completed");
+	        
+	        extent.flush();
+		
+	}
+	
+	
+	
+}

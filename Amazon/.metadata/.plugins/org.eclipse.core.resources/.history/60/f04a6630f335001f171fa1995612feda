@@ -1,0 +1,105 @@
+package ProjectA.ProjectA;
+
+import java.io.IOException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+
+public class ExtentReport 
+{
+
+	private static WebDriver driver = null;
+
+	public static void main(String[] args) throws IOException, InterruptedException {
+		// TODO Auto-generated method stub
+
+		 ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter("extent.html");
+		    
+	        // create ExtentReports and attach reporter(s)
+	        ExtentReports extent = new ExtentReports();
+	        extent.attachReporter(htmlReporter);
+
+	        // creates a toggle for the given test, adds all log events under it    
+	        ExtentTest test = extent.createTest("Amazon search Test1", "This is a Test to validate Amazon search Functionality");
+	        
+	        String path = System.getProperty("user.dir")+"\\reports\\AmazonExtent.html";
+	        
+	       // System.setProperty("weddriver.gecko.driver", path+"\\reports\\\\index.html\");
+			
+	        test.log(com.aventstack.extentreports.Status.INFO, "Starting Test Case");
+			
+	       
+	        driver = new ChromeDriver(); //create an object
+			
+			driver.get("https://www.amazon.in/");
+			test.pass("Navigated to amzon.in");
+			
+			System.out.print(driver.getTitle());
+			test.pass("get title");
+			
+			System.out.print(driver.getCurrentUrl());
+			test.pass("get Url");
+			
+			driver.manage().window().minimize();
+			test.pass("Window Minimize");
+			
+			driver.manage().window().maximize();
+			test.pass("Window Maximize");
+			
+			driver.findElement(By.id("twotabsearchtextbox")).sendKeys("Mobile");
+			test.pass("Mobile product searched successfully");
+			  
+			Thread.sleep(5000);
+			driver.findElement(By.xpath("//span[normalize-space()='under 20000']")).click();
+			test.pass("Mobile product searched Under 20000 successfully");
+			
+			
+			driver.findElement(By.id("nav-search-submit-button")).click();
+			test.pass("Clicked on search button successfully");
+			
+			driver.findElement(By.id("a-autoid-1-announce")).click();
+			test.pass("Added to cart successfully");
+			 
+//			Thread.sleep(5000);
+//			driver.findElement(By.xpath("//input[@name='proceedToRetailCheckout']")).click();
+//			test.pass("Proceed to Checkout successfully");
+//			
+//			Thread.sleep(5000);
+//			driver.navigate().back();
+//			test.pass("Nevigate to Back successfully");
+			
+			Thread.sleep(5000);
+			driver.navigate().back();
+			test.pass("Nevigate to Back successfully");
+			
+			driver.findElement(By.id("twotabsearchtextbox")).clear();
+			test.pass("Clear Search Box successfully");
+			
+			driver.findElement(By.id("twotabsearchtextbox")).sendKeys("Coffee Mug");
+			test.pass("Search Coffee Mug  successfully");
+			
+			driver.findElement(By.id("nav-search-submit-button")).click();
+			test.pass("Clicked on search button successfully");
+			
+			
+			driver.findElement(By.id("a-autoid-2-announce")).click();
+			test.pass("Added to cart successfully");
+			
+			driver.close();
+//			driver.quit();
+	        test.pass("close the browser");
+	        
+	        test.pass("Test completed");
+	        
+	        extent.flush();
+		
+	}
+	
+	
+	
+}
